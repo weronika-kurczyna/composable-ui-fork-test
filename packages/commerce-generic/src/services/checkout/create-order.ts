@@ -1,3 +1,4 @@
+import { orderPaid } from '@composable/voucherify'
 import { Cart, CheckoutInput, CommerceService, Order } from '@composable/types'
 import { getCart } from '../../data/mock-storage'
 import { saveOrder } from '../../data/mock-storage'
@@ -46,7 +47,10 @@ export const createOrder: CommerceService['createOrder'] = async ({
     )
   }
 
-  const updatedOrder = generateOrderFromCart(cart, checkout)
+  const updatedOrder = generateOrderFromCart(cart, checkout)  
+  // V%
+  updatedOrder.payment = 'paid'
+  await orderPaid(updatedOrder)
 
   return await saveOrder(updatedOrder)
 }
