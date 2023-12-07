@@ -29,7 +29,7 @@ const voucherifySetup = async () => {
       const createdProduct = await voucherifyClient.products.create({
         name: product.name,
         source_id: product.id,
-        price: product.price,
+        price: product.price * 100,
         image_url: product.images[0].url,
         metadata: {
           brand: product.brand,
@@ -44,6 +44,7 @@ const voucherifySetup = async () => {
         createdProduct.id,
         {
           sku: product.sku,
+          source_id: product.sku,
         }
       )
 

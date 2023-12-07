@@ -4,10 +4,7 @@ import {
   StackableRedeemableResponse,
   ValidationValidateStackableResponse,
 } from '@voucherify/sdk'
-import {
-  centToString,
-  toCent,
-} from '../../commerce-generic/src/services/cart/to-cent'
+import { centToString, toCent } from './to-cent'
 
 export const cartWithDiscount = (
   cart: Cart,
@@ -15,7 +12,10 @@ export const cartWithDiscount = (
   promotionsResult: PromotionsValidateResponse | false
 ): Cart => {
   if (!validationResponse || !validationResponse.redeemables) {
-    return cart
+    return {
+      ...cart,
+      summary: { ...cart.summary, totalDiscountAmount: undefined },
+    }
   }
 
   const promotions: Promotion[] = validationResponse.redeemables
@@ -29,7 +29,6 @@ export const cartWithDiscount = (
   const totalDiscountAmount = centToString(
     validationResponse.order?.total_applied_discount_amount ?? 0
   )
-
   const totalPrice = centToString(
     validationResponse.order?.total_amount ?? toCent(cart.summary.totalPrice)
   )
@@ -62,7 +61,11 @@ const mapRedeemableToPromotion = (
       ? promotionsResult
         ? promotionsResult.promotions?.find(
             (promotion) => promotion.id === redeemable.id
-          )?.banner || ''
+          )?.banner ||
+          promotionsResult.promotions?.find(
+            (promotion) => promotion.id === redeemable.id
+          )?.name ||
+          ''
         : redeemable.id
       : redeemable.id,
 })

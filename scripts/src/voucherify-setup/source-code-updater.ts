@@ -1,7 +1,6 @@
 import * as fs from 'fs/promises'
 import * as path from 'path'
 
-// Functions
 export async function replaceInFile(
   filePath: string,
   searchPhrase: string,
@@ -13,21 +12,19 @@ export async function replaceInFile(
     const data = await fs.readFile(fullPath, 'utf8')
 
     // Replace the search phrase with the replacement phrase
-    const updatedContent = data.replace(
-      new RegExp(searchPhrase, 'g'),
-      replacePhrase
-    )
+    const updatedContent = data.replace(searchPhrase, replacePhrase)
 
     // Write the updated content back to the file
     await fs.writeFile(fullPath, updatedContent, 'utf8')
 
     console.log(`Replacement complete in ${fullPath}`)
-  } catch (err) {
-    console.error(`Error: ${err}`)
+  } catch (error) {
+    const errorMessage = `Error replacing content in ${filePath}: ${error.message}`
+    throw new Error(errorMessage)
   }
 }
 
-export async function processFiles(
+export async function replaceInFiles(
   filePaths: string[],
   searchPhrase: string,
   replacePhrase: string
@@ -37,36 +34,11 @@ export async function processFiles(
       await replaceInFile(filePath, searchPhrase, replacePhrase)
     }
   } catch (err) {
-    console.error(`Error: ${err}`)
+    console.error(`The process of replacement has stopped due to error.`)
   }
 }
 
-export async function addVoucherifyToCreateOrderFile(
-  createOrderFilePath: string,
-  importContent: string,
-  updatePaidOrderContent: string,
-  searchedText: string
-) {
-  try {
-    const fullPath = path.join(__dirname, createOrderFilePath)
-    const data = await fs.readFile(fullPath, 'utf8')
-    const dataWithImportAdded = importContent.concat(data)
-
-    const updatedContent = dataWithImportAdded.replace(
-      searchedText,
-      (match) => {
-        return match + updatePaidOrderContent
-      }
-    )
-
-    await fs.writeFile(fullPath, updatedContent, 'utf8')
-    console.log(`Replacement complete in ${fullPath}`)
-  } catch (err) {
-    console.error(`Error: ${err}`)
-  }
-}
-
-export async function updatePackageJson(
+export async function addDependencyToPackage(
   packageJsonPath: string,
   newDependency: string,
   newDependencyVersion: string
@@ -87,33 +59,13 @@ export async function updatePackageJson(
     await fs.writeFile(fullPath, JSON.stringify(packageJson, null, 2), 'utf8')
 
     console.log(`Dependency added to package.json: ${newDependency}`)
-  } catch (err) {
-    console.error(`Error: ${err}`)
+  } catch (error) {
+    const errorMessage = `Error adding dependency to ${packageJsonPath}: ${error.message}`
+    throw new Error(errorMessage)
   }
 }
 
-export async function removeVoucherifyFromCreateOrderFile(
-  createOrderFilePath: string,
-  importContent: string,
-  updatePaidOrderContent: string
-) {
-  try {
-    const fullPath = path.join(__dirname, createOrderFilePath)
-    const data = await fs.readFile(fullPath, 'utf8')
-    const dataWithImportRemoved = data.replace(importContent, '')
-
-    const updatedContent = dataWithImportRemoved.replace(
-      updatePaidOrderContent,
-      ''
-    )
-    await fs.writeFile(fullPath, updatedContent, 'utf8')
-    console.log(`Replacement complete in ${fullPath}`)
-  } catch (err) {
-    console.error(`Error: ${err}`)
-  }
-}
-
-export async function removeFromPackageJson(
+export async function removeDependencyFromPackage(
   packageJsonPath: string,
   dependency: string
 ): Promise<void> {
@@ -137,7 +89,8 @@ export async function removeFromPackageJson(
     await fs.writeFile(fullPath, JSON.stringify(packageJson, null, 2), 'utf8')
 
     console.log(`Dependency removed from package.json: ${dependency}`)
-  } catch (err) {
-    console.error(`Error: ${err}`)
+  } catch (error) {
+    const errorMessage = `Error removing dependency from ${packageJsonPath}: ${error.message}`
+    throw new Error(errorMessage)
   }
 }

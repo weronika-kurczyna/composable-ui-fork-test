@@ -35,7 +35,7 @@ sequenceDiagram
   activate V
   V-->>CV: promotions
   deactivate V
-  CV->>V: Validate promotions and vouchers codes
+  CV->>V: Validate promotions and voucher codes
   activate V
   V-->>CV: Eligibility check and discount calculations results
   deactivate V
@@ -62,6 +62,11 @@ sequenceDiagram
 
 1. [Create a Voucherify account](https://app.voucherify.io/#/signup).
 2. In Voucherify Dashboard, [set Discount Application Rule to "Partial"](https://support.voucherify.io/article/604-stacking-rules#application-rules)
+   Please go to:
+- `Redemptions` tab on the left side of the Voucherify dashboard
+- Select `Stacking rules`
+- In `Discounts' application rules` select `Edit settings`
+- Change the `Application rule` to `Partial - inapplicable (not met criteria) discounts are omitted`
 3. Retrieve your API keys from your Voucherify dashboard and set the following environment variables:
 
 ```code
@@ -87,22 +92,21 @@ To configure product base promotions in Voucherify, propagate product definition
   pnpm voucherify-setup
   ```
 
-For more information about the configurations, see the [Application Configuration](essentials/configuration.md) section.
-
 ###  Enabling the use of Voucherify in the store
 
 1. To switch between the classic implementation and the Voucherify integration you can run:  
 ```
-pnpm voucherify-install
+pnpm voucherify-activate
 ``` 
 in `scripts` directory.
+
 2. This action will make commerce-generic services start using methods from `@composable/voucherify`.
 
 **Note:** In order for the changes to take effect, a re-run of `pnpm install` from root directory is required.
 
 3. To stop using Voucherify integration, run:
 ```
-pnpm voucherify-uninstall
+pnpm voucherify-deactivate
 ``` 
 in `scripts` directory.
 
@@ -111,3 +115,5 @@ in `scripts` directory.
 
 - [Application Configuration](essentials/configuration.md)
 - [Mono-repository](essentials/monorepo.md)
+
+For more information about the configurations, see the [Application Configuration](essentials/configuration.md) section.
