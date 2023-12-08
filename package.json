@@ -15,7 +15,8 @@
     "lint": "turbo run lint",
     "prepare": "husky install",
     "test:ci": "turbo run test:ci",
-    "ts": "turbo run ts"
+    "ts": "turbo run ts",
+    "voucherify-activate": "ts-node scripts/src/voucherify-setup/activate.ts"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
