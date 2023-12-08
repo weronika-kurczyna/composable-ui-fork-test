@@ -1,4 +1,9 @@
 import { orderPaid } from '@composable/voucherify'
+import { orderPaid } from '@composable/voucherify'
+import { orderPaid } from '@composable/voucherify'
+import { orderPaid } from '@composable/voucherify'
+import { orderPaid } from '@composable/voucherify'
+import { orderPaid } from '@composable/voucherify'
 import { Cart, CheckoutInput, CommerceService, Order } from '@composable/types'
 import { getCart } from '../../data/mock-storage'
 import { saveOrder } from '../../data/mock-storage'
@@ -48,6 +53,31 @@ export const createOrder: CommerceService['createOrder'] = async ({
   }
 
   const updatedOrder = generateOrderFromCart(cart, checkout)
+    /* Redemptions using Voucherify should only be performed when we receive information that the payment was successful.
+    In this situation, the ‘payment’ property is always set as 'unpaid' (in 'generateOrderFromCart'),
+    so to simulate the correct behavior, the ‘payment’ value was changed here to 'paid' and the ‘orderPaid’ function was called to trigger the redemptions process.*/
+    updatedOrder.payment = 'paid'
+    await orderPaid(updatedOrder)
+    /* Redemptions using Voucherify should only be performed when we receive information that the payment was successful.
+    In this situation, the ‘payment’ property is always set as 'unpaid' (in 'generateOrderFromCart'),
+    so to simulate the correct behavior, the ‘payment’ value was changed here to 'paid' and the ‘orderPaid’ function was called to trigger the redemptions process.*/
+    updatedOrder.payment = 'paid'
+    await orderPaid(updatedOrder)
+    /* Redemptions using Voucherify should only be performed when we receive information that the payment was successful.
+    In this situation, the ‘payment’ property is always set as 'unpaid' (in 'generateOrderFromCart'),
+    so to simulate the correct behavior, the ‘payment’ value was changed here to 'paid' and the ‘orderPaid’ function was called to trigger the redemptions process.*/
+    updatedOrder.payment = 'paid'
+    await orderPaid(updatedOrder)
+    /* Redemptions using Voucherify should only be performed when we receive information that the payment was successful.
+    In this situation, the ‘payment’ property is always set as 'unpaid' (in 'generateOrderFromCart'),
+    so to simulate the correct behavior, the ‘payment’ value was changed here to 'paid' and the ‘orderPaid’ function was called to trigger the redemptions process.*/
+    updatedOrder.payment = 'paid'
+    await orderPaid(updatedOrder)
+    /* Redemptions using Voucherify should only be performed when we receive information that the payment was successful.
+    In this situation, the ‘payment’ property is always set as 'unpaid' (in 'generateOrderFromCart'),
+    so to simulate the correct behavior, the ‘payment’ value was changed here to 'paid' and the ‘orderPaid’ function was called to trigger the redemptions process.*/
+    updatedOrder.payment = 'paid'
+    await orderPaid(updatedOrder)
     /* Redemptions using Voucherify should only be performed when we receive information that the payment was successful.
     In this situation, the ‘payment’ property is always set as 'unpaid' (in 'generateOrderFromCart'),
     so to simulate the correct behavior, the ‘payment’ value was changed here to 'paid' and the ‘orderPaid’ function was called to trigger the redemptions process.*/
