@@ -5,7 +5,7 @@ import {
   calculateCartSummary,
   generateEmptyCart,
 } from '../../data/generate-cart-data'
-import { updateCartDiscount } from '@composable/voucherify'
+import { updateCartDiscount } from './discount'
 
 export const addCartItem: CommerceService['addCartItem'] = async ({
   cartId,
