@@ -3,7 +3,7 @@ import {
   getCart as getCartFromStorage,
   saveCart,
 } from '../../data/mock-storage'
-import { deleteVoucherFromCart } from './discount'
+import { deleteVoucherFromCart } from '@composable/voucherify'
 export const deleteVoucher: CommerceService['deleteVoucher'] = async ({
   cartId,
   code,

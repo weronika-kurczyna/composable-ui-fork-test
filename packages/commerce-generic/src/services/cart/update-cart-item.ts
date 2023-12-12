@@ -2,7 +2,7 @@ import { CommerceService } from '@composable/types'
 import { getCart, saveCart } from '../../data/mock-storage'
 
 import { calculateCartSummary } from '../../data/generate-cart-data'
-import { updateCartDiscount } from './discount'
+import { updateCartDiscount } from '@composable/voucherify'
 
 export const updateCartItem: CommerceService['updateCartItem'] = async ({
   cartId,
